@@ -1,0 +1,39 @@
+# values.yaml
+name: hetzner-aux-node-operator
+
+replicaCount: 1
+namespace: "kube-system"
+
+image:
+  repository: robse/hetzner-aux-node-operator
+  pullPolicy: IfNotPresent
+  tag: "7-9c351c1"
+
+tolerations:
+  - key: "node-role.kubernetes.io/control-plane"
+    operator: "Exists"
+    effect: "NoSchedule"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+
+# Required network IDs or names that must be attached to every node in the cluster. Can be comma separated list of IDs or names or empty.
+required_networks:
+  ids: "12345"
+  names: "networkA,networkB"
+
+# Firewall ID or name that must be attached to every node in the cluster. Can be comma separated list of IDs or names or empty.
+enforce_firewalls:
+  ids: "112233,223344"
+  names: "firewallA,firewallB"
+  # Extra hosts that must be counted in for enforcing the firewalls. Can be comma separated list of VM names or empty.
+  extra_hosts: "my-vm1,database-vm"
+  # Interval in seconds to check for firewall changes. Do not lower this value below 10 seconds due to hetzner rate limiting.
+  check_interval: "10"
+
+hetzner_cloud_api_token: "HETZNER_PROJECT_API_TOKEN"

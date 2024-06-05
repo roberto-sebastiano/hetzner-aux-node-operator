@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hetzner-network-config
+  namespace: "{{ .Values.namespace }}"
+data:
+  required_network_ids: "{{ .Values.required_networks.ids }}"
+  required_network_names: "{{ .Values.required_networks.names }}"
+  enforce_firewall_ids: "{{ .Values.enforce_firewalls.ids }}"
+  enforce_firewall_names: "{{ .Values.enforce_firewalls.names }}"
+  enforce_firewall_extra_hosts: "{{ .Values.enforce_firewalls.extra_hosts }}"
+  firewall_check_inteval: "{{ .Values.enforce_firewalls.check_interval }}"

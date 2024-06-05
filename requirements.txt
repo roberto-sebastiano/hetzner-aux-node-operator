@@ -1,0 +1,3 @@
+lightkube == 0.15.*
+hcloud == 1.35.*
+
